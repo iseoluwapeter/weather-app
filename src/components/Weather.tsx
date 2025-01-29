@@ -9,16 +9,20 @@ const Weather = (): JSX.Element => {
   const [forecastData, setForecastData] = useState<any | null>(null);
   const [error, setError] = useState<string>("");
 
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  const BASE_URL = "http://api.openweathermap.org/geo/1.0/direct"
+  const BASE_URL_TWO = "https://api.openweathermap.org/data/2.5/weather?"
+
   //FETCH CITY OPTIONS
   const getSearchOptions = async (value: string) => {
     try {
-      const { data } = await axios.get(
-        "http://api.openweathermap.org/geo/1.0/direct",
+      const { data } = await axios.get(`${BASE_URL}`
+        ,
         {
           params: {
             q: value,
             limit: 5,
-            appid: "5e2220f666d69444af0abb688c82a3b6",
+            appid: API_KEY,
           },
         }
       );
@@ -44,13 +48,13 @@ const Weather = (): JSX.Element => {
     }
     try {
       const { lat, lon } = cityOptions[0];
-      const { data } = await axios.get(
-        "https://api.openweathermap.org/data/2.5/weather?",
+      const { data } = await axios.get(`${BASE_URL_TWO}`
+        ,
         {
           params: {
             lat,
             lon,
-            appid: "5e2220f666d69444af0abb688c82a3b6",
+            appid: API_KEY,
             units: "metric",
           },
         }
