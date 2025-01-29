@@ -1,0 +1,3 @@
+Thought Process
+We need the input to be able to be sensitive city terms being inputed.
+Solution:We will set a state to be accept the city terms so as the city option is changing we are setting the city be searched by the app call
