@@ -66,7 +66,7 @@ const Weather = (): JSX.Element => {
     }
   };
   return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 p-7">
+    <div className="flex justify-center items-center md:h-screen  bg-gradient-to-br  from-orange-400 via-pink-500 to-purple-600 p-7">
       <div className="w-full py-9 px-7 mx- md:max-w-[500px]   flex flex-col items-center md:px-10 lg:py-20 lg:px-14   bg-white bg-opacity-20 backdrop-blur-ls  rounded drop-shadow-lg text-zinc-700 text-center ">
         <h1 className="text-2xl font-bold">
           <span className="text-white">Weather</span> Forecast
