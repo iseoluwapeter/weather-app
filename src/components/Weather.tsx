@@ -9,9 +9,10 @@ const Weather = (): JSX.Element => {
   const [forecastData, setForecastData] = useState<any | null>(null);
   const [error, setError] = useState<string>("");
 
-  const API_KEY = process.env.REACT_APP_API_KEY;
-  const BASE_URL = "http://api.openweathermap.org/geo/1.0/direct"
+  const API_KEY = import.meta.env.VITE_API_KEY;
+  const BASE_URL = "https://api.openweathermap.org/geo/1.0/direct"
   const BASE_URL_TWO = "https://api.openweathermap.org/data/2.5/weather?"
+  console.log("api key:", API_KEY)
 
   //FETCH CITY OPTIONS
   const getSearchOptions = async (value: string) => {
