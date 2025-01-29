@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 const Weather = (): JSX.Element => {
   //setting our term into the input
@@ -10,23 +10,20 @@ const Weather = (): JSX.Element => {
   const [error, setError] = useState<string>("");
 
   const API_KEY = import.meta.env.VITE_API_KEY;
-  const BASE_URL = "https://api.openweathermap.org/geo/1.0/direct"
-  const BASE_URL_TWO = "https://api.openweathermap.org/data/2.5/weather?"
-  console.log("api key:", API_KEY)
+  const BASE_URL = "https://api.openweathermap.org/geo/1.0/direct";
+  const BASE_URL_TWO = "https://api.openweathermap.org/data/2.5/weather?";
+  // console.log("api key:", API_KEY)
 
   //FETCH CITY OPTIONS
   const getSearchOptions = async (value: string) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}`
-        ,
-        {
-          params: {
-            q: value,
-            limit: 5,
-            appid: API_KEY,
-          },
-        }
-      );
+      const { data } = await axios.get(`${BASE_URL}`, {
+        params: {
+          q: value,
+          limit: 5,
+          appid: API_KEY,
+        },
+      });
       console.log(data);
       setCityOptions(data);
     } catch (error) {
@@ -49,18 +46,15 @@ const Weather = (): JSX.Element => {
     }
     try {
       const { lat, lon } = cityOptions[0];
-      const { data } = await axios.get(`${BASE_URL_TWO}`
-        ,
-        {
-          params: {
-            lat,
-            lon,
-            appid: API_KEY,
-            units: "metric",
-          },
-        }
-      );
-      console.log(data);
+      const { data } = await axios.get(`${BASE_URL_TWO}`, {
+        params: {
+          lat,
+          lon,
+          appid: API_KEY,
+          units: "metric",
+        },
+      });
+      // console.log(data);
       setForecastData(data);
       setError("");
 
@@ -78,22 +72,23 @@ const Weather = (): JSX.Element => {
           <span className="text-white">Weather</span> Forecast
         </h1>
         <p className="text-white px-1">
-          Type in the city you want to know its weather condition in the space
-          provide below
+          Type in the city you want to know its weather condition
         </p>
 
         {/* INPUT AND SEARCH BUTTON  */}
-        <div className="w-full  ">
+        <div className="w-full flex flex-col justify-center sm:flex-row items-center gap-2 mt-4">
+          {/* Input Field */}
           <input
             type="text"
             value={city}
             placeholder="Search for a city..."
-            className=" p-2 mt-4  rounded-l-md "
+            className="w-full sm:w-[70%] md:w-[60%] lg:w-[50%] p-3 sm:p-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={onCityChange}
           />
 
+          {/* Search Button */}
           <button
-            className="border-blue-500 p-2 rounded-r-md font-semibold bg-blue-500 text-white hover:bg-gray-500 hover:transition-all "
+            className="w-full sm:w-auto px-5 py-3 sm:py-2 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-600 transition-all"
             onClick={fetchForecast}
           >
             Search
@@ -132,6 +127,11 @@ const Weather = (): JSX.Element => {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               {forecastData.name}, {forecastData.sys.country}
+              <h1 className="font-light text-sm">
+                Lon: {forecastData.coord.lon}{" "}
+                
+                <p>Lat: {forecastData.coord.lat}</p>
+              </h1>
             </motion.h2>
 
             {/* Forecast Details */}
@@ -175,8 +175,6 @@ const Weather = (): JSX.Element => {
             </motion.div>
           </motion.div>
         )}
-
-        
       </div>
     </div>
   );
